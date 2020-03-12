@@ -25,6 +25,10 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('/home', 'HomeController@index')->name('home');
 
+    Route::match(['get', 'post'], '/user/profile', 'HomeController@userProfile')->name('user_profile');
+
+    Route::match(['get', 'post'], '/user/profile/setting/{id}', 'HomeController@userProfileSetting')->name('user_profile_setting');
+
     Route::group(['prefix' => 'categories'], function() {
         
     	Route::match(['get', 'post'], '/', 'CategoryController@index')->name('categories');

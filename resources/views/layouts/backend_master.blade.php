@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Admin - @yield('title')</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('backend_assets/assets/img/favicon.ico') }}"/>
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
@@ -63,15 +64,15 @@
                     <div class="dropdown-menu position-absolute animated fadeInUp" aria-labelledby="userProfileDropdown">
                         <div class="user-profile-section">
                             <div class="media mx-auto">
-                                <img src="{{ asset('backend_assets/assets/img/profile-17.jpg') }}" class="img-fluid mr-2" alt="avatar">
+                                <img src="{{ asset('uploads/users/images') }}/{{ Auth::user()->image }}" class="img-fluid mr-2" alt="avatar">
                                 <div class="media-body">
-                                    <h5>Sonia Shaw</h5>
-                                    <p>Project Leader</p>
+                                    <h5>{{ Auth::user()->name }}</h5>
+                                    <p>{{ Auth::user()->profession }}</p>
                                 </div>
                             </div>
                         </div>
                         <div class="dropdown-item">
-                            <a href="user_profile.html">
+                            <a href="{{ route('user_profile') }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> <span>My Profile</span>
                             </a>
                         </div>
@@ -86,9 +87,13 @@
                             </a>
                         </div>
                         <div class="dropdown-item">
-                            <a href="auth_login.html">
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg> <span>Log Out</span>
                             </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
                         </div>
                     </div>
                 </li>
@@ -110,9 +115,13 @@
                 <div class="profile-info">
                     <figure class="user-cover-image"></figure>
                     <div class="user-info">
-                        <img src="{{ asset('backend_assets/assets/img/profile-17.jpg') }}" alt="avatar">
-                        <h6 class="">Sonia Shaw</h6>
-                        <p class="">Project Leader</p>
+                        <a href="{{ route('user_profile') }}">
+                        <img src="{{ asset('uploads/users/images') }}/{{ Auth::user()->image }}" alt="avatar">
+                        </a>
+                        <a href="{{ route('user_profile') }}">
+                        <h6 class="">{{ Auth::user()->name }}</h6>
+                        </a>
+                        <p class="">{{ Auth::user()->profession }}</p>
                     </div>
                 </div>
                 <div class="shadow-bottom"></div>

@@ -21,9 +21,14 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('username')->nullable();
             $table->binary('bio')->nullable();
-            $table->string('image')->default('default.png');
+            $table->string('image')->default('default.jpg');
+            $table->string('gender')->nullable();
             $table->string('profession')->nullable();
             $table->date('birthday')->nullable();
+            $table->string('address')->nullable();
+            $table->unsignedBigInteger('country_id')->nullable();
+            $table->string('location')->nullable();
+            $table->string('phone')->nullable();
             $table->string('website')->nullable();
             $table->string('facebook')->nullable();
             $table->string('twitter')->nullable();
@@ -33,6 +38,8 @@ class CreateUsersTable extends Migration
             $table->boolean('status')->default(1);
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreign('country_id')->references('id')->on('countries');
         });
     }
 
