@@ -35,7 +35,14 @@
                             <td>
                                 <a href="#" class="d-flex">
                                     <div class="usr-img-frame mr-2 rounded-circle">
-                                        <img alt="avatar" class="img-fluid rounded-circle" src="{{ asset('uploads/users/images') }}/{{ $user->image }}">
+
+                                        @if ($user->gender == 'M')
+                                            <img alt="avatar" class="img-fluid rounded-circle" src="{{ asset('uploads/users/images/male.png') }}">
+                                        @elseif ($user->gender == 'F')
+                                            <img alt="avatar" class="img-fluid rounded-circle" src="{{ asset('uploads/users/images/female.png') }}">
+                                        @else <img alt="avatar" class="img-fluid rounded-circle" src="{{ asset('uploads/users/images/default.jpg') }}">
+                                        @endif
+                                        
                                     </div>
                                     <p class="align-self-center mb-0 admin-name"> {{ $user->name }} </p>
                                 </a>
