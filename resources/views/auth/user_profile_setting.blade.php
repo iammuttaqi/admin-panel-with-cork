@@ -10,6 +10,10 @@
 
     <link href="{{ asset('backend_assets/plugins/flatpickr/custom-flatpickr.css') }}" rel="stylesheet" type="text/css">
 
+    <link href="{{ asset('backend_assets/assets/css/scrollspyNav.css') }}" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend_assets/plugins/select2/select2.min.css') }}">
+
 @endsection
 
 
@@ -28,8 +32,8 @@
                                             <div class="row">
                                                 <div class="col-xl-2 col-lg-12 col-md-4">
                                                     <div class="upload mt-4 pr-md-4">
-                                                        <input type="file" id="input-file-max-fs" class="dropify" data-default-file="{{ asset('uploads/users/images') }}/{{ $getUser->image }}" data-max-file-size="2M"/ name="image">
-                                                        <p class="mt-2"><i class="flaticon-cloud-upload mr-1"></i> Upload Picture</p>
+                                                        <input type="file" id="uploadImage" class="dropify" data-default-file="{{ $getUser->gender == 'M' ? asset('uploads/users/images/male.png') : ($getUser->gender == 'F' ? asset('uploads/users/images/female.png') : asset('uploads/users/images/default.jpg')) }}" data-max-file-size="2M"/ name="image">
+                                                        <p class="mt-2"><i class="flaticon-cloud-upload mr-1"></i>Upload Picture</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-10 col-lg-12 col-md-8 mt-md-0 mt-4">
@@ -130,7 +134,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="country_id">Country</label>
-                                                        <select class="form-control" id="country_id">
+                                                        <select class="form-control selectCountry" id="country_id">
                                                             <option selected="" disabled="">--Select Your Country</option>
                                                             @foreach ($getCountries as $country)
                                                                 <option value="{{ $country->id }}" {{ $country->id == $getUser->country_id ? 'selected' : '' }}>{{ $country->country_name }}</option>
@@ -614,6 +618,9 @@
 	<script src="{{ asset('backend_assets/assets/js/users/account-settings.js') }}"></script>
 	<script src="{{ asset('backend_assets/plugins/flatpickr/flatpickr.js') }}"></script>
 	<script src="{{ asset('backend_assets/plugins/flatpickr/custom-flatpickr.js') }}"></script>
+    <script src="{{ asset('backend_assets/assets/js/scrollspyNav.js') }}"></script>
+    <script src="{{ asset('backend_assets/plugins/select2/select2.min.js') }}"></script>
+    <script src="{{ asset('backend_assets/plugins/select2/custom-select2.js') }}"></script>
 	<script type="text/javascript">
 		$('#multiple-messages').on('click', function(){
 			var name = $('#name').val();
@@ -661,5 +668,10 @@
 				}
 			});
 		});
+
+        //select2
+        var ss = $(".selectCountry").select2({
+            tags: true,
+        });
 	</script>
 @endsection
