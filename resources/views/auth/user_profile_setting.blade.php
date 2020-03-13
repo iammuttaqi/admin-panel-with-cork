@@ -28,7 +28,6 @@
                                             <div class="row">
                                                 <div class="col-xl-2 col-lg-12 col-md-4">
                                                     <div class="upload mt-4 pr-md-4">
-                                                    	<input type="hidden" id="id" value="{{ $getUser->id }}">
                                                         <input type="file" id="input-file-max-fs" class="dropify" data-default-file="{{ asset('uploads/users/images') }}/{{ $getUser->image }}" data-max-file-size="2M"/ name="image">
                                                         <p class="mt-2"><i class="flaticon-cloud-upload mr-1"></i> Upload Picture</p>
                                                     </div>
@@ -43,6 +42,18 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label for="profession">Username</label>
+                                                                    <input type="text" class="form-control mb-4" id="username" value="{{ $getUser->username }}" name="username">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label for="profession">Profession</label>
+                                                                    <input type="text" class="form-control mb-4" id="profession" placeholder="Designer" value="{{ $getUser->profession }}" name="professioin">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
                                                                 <label class="dob-input">Date of Birth</label>
                                                                 <div class="d-sm-flex d-block">
                                                                     <div class="form-group mr-1">
@@ -50,11 +61,18 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label for="gender">Gender</label>
+                                                                    <select id="gender" class="form-control">
+                                                                        <option disabled selected>--Select--</option>
+                                                                        <option value="M" {{ $getUser->gender == 'M' ? 'selected' : '' }}>Male</option>
+                                                                        <option value="F" {{ $getUser->gender == 'F' ? 'selected' : '' }}>Female</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label for="profession">Profession</label>
-                                                            <input type="text" class="form-control mb-4" id="profession" placeholder="Designer" value="{{ $getUser->profession }}" name="professioin">
-                                                        </div>
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
@@ -596,12 +614,13 @@
 	<script src="{{ asset('backend_assets/assets/js/users/account-settings.js') }}"></script>
 	<script src="{{ asset('backend_assets/plugins/flatpickr/flatpickr.js') }}"></script>
 	<script src="{{ asset('backend_assets/plugins/flatpickr/custom-flatpickr.js') }}"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script type="text/javascript">
 		$('#multiple-messages').on('click', function(){
 			var name = $('#name').val();
 			var birthday = $('#basicFlatpickr').val();
 			var profession = $('#profession').val();
+            var username = $('#username').val();
+            var gender = $('#gender').val();
 			var bio = $('#aboutBio').val();
 			var address = $('#address').val();
 			var phone = $('#phone').val();
@@ -624,6 +643,8 @@
 					birthday: birthday,
 					profession: profession,
 					bio: bio,
+                    username: username,
+                    gender: gender,
 					address: address,
 					phone: phone,
 					email: email,
