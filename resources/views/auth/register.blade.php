@@ -69,7 +69,7 @@
                                     <div class="n-chk new-checkbox checkbox-outline-primary">
                                         <label class="new-control new-checkbox checkbox-outline-primary">
                                           <input type="checkbox" class="new-control-input">
-                                          <span class="new-control-indicator"></span><span>I agree to the <a href="javascript:void(0);">  terms and conditions </a></span>
+                                          {{-- <span class="new-control-indicator"></span><span>I agree to the <a href="javascript:void(0);">  terms and conditions </a></span> --}}
                                         </label>
                                     </div>
                                 </div>
@@ -88,7 +88,6 @@
 
                             </div>
                         </form>                        
-                        <p class="terms-conditions">© 2020 All Rights Reserved. <a href="index-2.html">CORK</a> is a product of Designreset. <a href="javascript:void(0);">Cookie Preferences</a>, <a href="javascript:void(0);">Privacy</a>, and <a href="javascript:void(0);">Terms</a>.</p>
 
                     </div>                    
                 </div>
@@ -96,6 +95,7 @@
         </div>
         <div class="form-image">
             <div class="l-image">
+                <img src="{{ asset('backend_assets/assets/img/register-banner.jpg') }}">
             </div>
         </div>
     </div>

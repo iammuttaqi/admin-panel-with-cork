@@ -64,13 +64,15 @@
                     <div class="dropdown-menu position-absolute animated fadeInUp" aria-labelledby="userProfileDropdown">
                         <div class="user-profile-section">
                             <div class="media mx-auto">
+
+                                <img src="@if ($getUser->gender == 'M' && $getUser->image == 'default.jpg'){{ asset('uploads/users/images/male.png') }}@elseif($getUser->gender == 'F' && $getUser->image == 'default.jpg'){{ asset('uploads/users/images/female.png') }}@elseif(isset($getUser->image)){{ asset('uploads/users/images') }}/{{ $getUser->image }}@endif" class="img-fluid mr-2" alt="avatar">
                                 
-                                @if (Auth::user()->gender == 'M')
+                                {{-- @if (Auth::user()->gender == 'M')
                                     <img src="{{ asset('uploads/users/images/male.png') }}" class="img-fluid mr-2" alt="avatar">
                                 @elseif (Auth::user()->gender == 'F')
                                     <img src="{{ asset('uploads/users/images/female.png') }}" class="img-fluid mr-2" alt="avatar">
                                 @else <img src="{{ asset('uploads/users/images/default.jpg') }}" class="img-fluid mr-2" alt="avatar">
-                                @endif
+                                @endif --}}
 
                                 <div class="media-body">
                                     <h5>{{ Auth::user()->name }}</h5>
@@ -123,12 +125,13 @@
                     <figure class="user-cover-image"></figure>
                     <div class="user-info">
                         <a href="{{ route('user_profile') }}">
-                            @if (Auth::user()->gender == 'M')
+                            <img src="@if ($getUser->gender == 'M' && $getUser->image == 'default.jpg'){{ asset('uploads/users/images/male.png') }}@elseif($getUser->gender == 'F' && $getUser->image == 'default.jpg'){{ asset('uploads/users/images/female.png') }}@elseif(isset($getUser->image)){{ asset('uploads/users/images') }}/{{ $getUser->image }}@endif" alt="avatar">
+                            {{-- @if (Auth::user()->gender == 'M')
                                 <img src="{{ asset('uploads/users/images/male.png') }}" alt="avatar">
                             @elseif(Auth::user()->gender == 'F')
                                 <img src="{{ asset('uploads/users/images/female.png') }}" alt="avatar">
                             @else <img src="{{ asset('uploads/users/images/default.jpg') }}" alt="avatar">
-                            @endif
+                            @endif --}}
                         </a>
                         <a href="{{ route('user_profile') }}">
                         <h6 class="">{{ Auth::user()->name }}</h6>

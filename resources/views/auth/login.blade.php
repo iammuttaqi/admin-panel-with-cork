@@ -85,7 +85,6 @@
 
                             </div>
                         </form>                        
-                        <p class="terms-conditions">© 2020 All Rights Reserved. <a href="index-2.html">CORK</a> is a product of Designreset. <a href="javascript:void(0);">Cookie Preferences</a>, <a href="javascript:void(0);">Privacy</a>, and <a href="javascript:void(0);">Terms</a>.</p>
 
                     </div>                    
                 </div>
@@ -93,6 +92,7 @@
         </div>
         <div class="form-image">
             <div class="l-image">
+                <img src="{{ asset('backend_assets/assets/img/login-banner.jpg') }}">
             </div>
         </div>
     </div>

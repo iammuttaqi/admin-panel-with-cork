@@ -63,4 +63,20 @@ class HomeController extends Controller
         $getCountries = Country::all();
         return view('auth/user_profile_setting', compact('getUser', 'getCountries'));
     }
+
+    public function userImageUpload(Request $request, $id)
+    {
+        if ($request->isMethod('post')) {
+            if ($request->hasFile('image')) {
+                $image = $request->image;
+                $ext = $image->getClientOriginalExtension();
+                $filename = date('Y-m-d-H-i-s').'.'.$ext;
+                $image->move(public_path('uploads/users/images/'), $filename);
+                User::where('id', $id)->update([
+                    'image' => $filename,
+                ]);
+                return response('Image Uploaded Successfully');
+            }
+        }
+    }
 }

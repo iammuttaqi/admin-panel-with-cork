@@ -18,13 +18,15 @@
 				<a href="{{ route('user_profile_setting', $getUser->id) }}" class="mt-2 edit-profile"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></a>
 			</div>
 			<div class="text-center user-info">
+
+				<img src="@if ($getUser->gender == 'M' && $getUser->image == 'default.jpg'){{ asset('uploads/users/images/male.png') }}@elseif($getUser->gender == 'F' && $getUser->image == 'default.jpg'){{ asset('uploads/users/images/female.png') }}@elseif(isset($getUser->image)){{ asset('uploads/users/images') }}/{{ $getUser->image }}@endif" alt="avatar" width="100px">
 				
-				@if ($getUser->gender == 'M')
+				{{-- @if ($getUser->gender == 'M')
 					<img src="{{ asset('uploads/users/images/male.png') }}" alt="avatar" width="100px">
 				@elseif($getUser->gender == 'F')
 					<img src="{{ asset('uploads/users/images/female.png') }}" alt="avatar" width="100px">
 				@else <img src="{{ asset('uploads/users/images/default.jpg') }}" alt="avatar" width="100px">
-				@endif
+				@endif --}}
 				
 				<p class="">{{ $getUser->name }}</p>
 			</div>
@@ -43,7 +45,7 @@
 						@endif
 						@if ($getUser->address)
 						<li class="contacts-block__item">
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>{{ $getUser->address }}
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>{{ $getUser->address }}, {{ $getUser->location }}, {{ $getUser->getCountry->country_name }}
 						</li>
 						@endif
 						@if ($getUser->email)

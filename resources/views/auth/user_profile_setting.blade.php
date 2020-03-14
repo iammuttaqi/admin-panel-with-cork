@@ -14,6 +14,10 @@
 
     <link rel="stylesheet" type="text/css" href="{{ asset('backend_assets/plugins/select2/select2.min.css') }}">
 
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend_assets/plugins/bootstrap-select/bootstrap-select.min.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('backend_assets/plugins/editors/markdown/simplemde.min.css') }}">
+
 @endsection
 
 
@@ -32,7 +36,8 @@
                                             <div class="row">
                                                 <div class="col-xl-2 col-lg-12 col-md-4">
                                                     <div class="upload mt-4 pr-md-4">
-                                                        <input type="file" id="uploadImage" class="dropify" data-default-file="{{ $getUser->gender == 'M' ? asset('uploads/users/images/male.png') : ($getUser->gender == 'F' ? asset('uploads/users/images/female.png') : asset('uploads/users/images/default.jpg')) }}" data-max-file-size="2M"/ name="image">
+                                                        {{-- <input type="file" id="uploadImage" class="dropify" data-default-file="{{ $getUser->gender == 'M' ? asset('uploads/users/images/male.png') : ($getUser->gender == 'F' ? asset('uploads/users/images/female.png') : asset('uploads/users/images/default.jpg')) }}" data-max-file-size="2M"/ name="image"> --}}
+                                                        <input type="file" id="uploadImage" class="dropify" data-default-file="@if ($getUser->gender == 'M' && $getUser->image == 'default.jpg'){{ asset('uploads/users/images/male.png') }}@elseif($getUser->gender == 'F' && $getUser->image == 'default.jpg'){{ asset('uploads/users/images/female.png') }}@elseif(isset($getUser->image)){{ asset('uploads/users/images') }}/{{ $getUser->image }}@endif" data-max-file-size="2M"/ name="image">
                                                         <p class="mt-2"><i class="flaticon-cloud-upload mr-1"></i>Upload Picture</p>
                                                     </div>
                                                 </div>
@@ -68,8 +73,8 @@
                                                             <div class="col-sm-6">
                                                                 <div class="form-group">
                                                                     <label for="gender">Gender</label>
-                                                                    <select id="gender" class="form-control">
-                                                                        <option disabled selected>--Select--</option>
+                                                                    <select id="gender" class="selectpicker form-control">
+                                                                        <option disabled selected>--Select Gender--</option>
                                                                         <option value="M" {{ $getUser->gender == 'M' ? 'selected' : '' }}>Male</option>
                                                                         <option value="F" {{ $getUser->gender == 'F' ? 'selected' : '' }}>Female</option>
                                                                     </select>
@@ -621,7 +626,12 @@
     <script src="{{ asset('backend_assets/assets/js/scrollspyNav.js') }}"></script>
     <script src="{{ asset('backend_assets/plugins/select2/select2.min.js') }}"></script>
     <script src="{{ asset('backend_assets/plugins/select2/custom-select2.js') }}"></script>
+    <script src="{{ asset('backend_assets/plugins/bootstrap-select/bootstrap-select.min.js') }}"></script>
+    <script src="{{ asset('backend_assets/plugins/editors/markdown/simplemde.min.js') }}"></script>
+    <script src="{{ asset('backend_assets/plugins/editors/markdown/custom-markdown.js') }}"></script>
+
 	<script type="text/javascript">
+
 		$('#multiple-messages').on('click', function(){
 			var name = $('#name').val();
 			var birthday = $('#basicFlatpickr').val();
@@ -669,9 +679,32 @@
 			});
 		});
 
+        //upload image
+        $('#uploadImage').on('change', function(){
+            var formData = new FormData();
+            var image = $('#uploadImage')[0].files[0];
+            formData.append('image',image);
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type:'POST',
+                url: '{{ route("user_image_upload", $getUser->id) }}',
+                data:formData,
+                cache:false,
+                contentType: false,
+                processData: false,
+                success:function(data){
+                    $('#successMessage').html(data);
+                },
+            });
+        });
+
         //select2
         var ss = $(".selectCountry").select2({
             tags: true,
         });
+
 	</script>
+
 @endsection
