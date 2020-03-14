@@ -36,10 +36,11 @@ class HomeController extends Controller
         return view('auth/user_profile', compact('getUser'));
     }
 
-    public function userProfileSetting(Request $request, $id)
+    public function userProfileSetting(Request $request)
     {
+        $getUser = Auth::user();
         if ($request->isMethod('post')) {
-            User::where('id', $id)->update([
+            User::where('id', $getUser->id)->update([
                 'name' => $request->name,
                 'birthday' => $request->birthday,
                 'profession' => $request->profession,
@@ -59,23 +60,38 @@ class HomeController extends Controller
             ]);
             return response('Profile Updated Successfully');
         }
-        $getUser = Auth::user();
         $getCountries = Country::all();
         return view('auth/user_profile_setting', compact('getUser', 'getCountries'));
     }
 
-    public function userImageUpload(Request $request, $id)
+    public function userImageUpload(Request $request)
     {
+        $getUser = Auth::user();
         if ($request->isMethod('post')) {
             if ($request->hasFile('image')) {
-                $image = $request->image;
-                $ext = $image->getClientOriginalExtension();
-                $filename = date('Y-m-d-H-i-s').'.'.$ext;
-                $image->move(public_path('uploads/users/images/'), $filename);
-                User::where('id', $id)->update([
-                    'image' => $filename,
-                ]);
-                return response('Image Uploaded Successfully');
+                if ($getUser->image == 'default.jpg') {
+                    $image = $request->image;
+                    $ext = $image->getClientOriginalExtension();
+                    $filename = $getUser->id.'. '.$getUser->name.'-'.date('Y-m-d-H-i-s').'.'.$ext;
+                    $image->move(public_path('uploads/users/images/'), $filename);
+                    User::where('id', $getUser->id)->update([
+                        'image' => $filename,
+                    ]);
+                }
+                else {
+                    //delete old image
+                    $delete_image = $getUser->image;
+                    unlink('uploads/users/images/'.$delete_image);
+
+                    //upload new image
+                    $image = $request->image;
+                    $ext = $image->getClientOriginalExtension();
+                    $filename = $getUser->id.'. '.$getUser->name.'-'.date('Y-m-d-H-i-s').'.'.$ext;
+                    $image->move(public_path('uploads/users/images/'), $filename);
+                    User::where('id', $getUser->id)->update([
+                        'image' => $filename,
+                    ]);
+                }
             }
         }
     }

@@ -63,22 +63,23 @@
                     </a>
                     <div class="dropdown-menu position-absolute animated fadeInUp" aria-labelledby="userProfileDropdown">
                         <div class="user-profile-section">
-                            <div class="media mx-auto">
+                            <a href="{{ route('user_profile') }}">
+                                <div class="media mx-auto">
+                                    <img style="width: 40px; height: 40px; object-fit: cover" src="@if (Auth::user()->gender == 'M' && Auth::user()->image == 'default.jpg'){{ asset('uploads/users/images/male.png') }}@elseif(Auth::user()->gender == 'F' && Auth::user()->image == 'default.jpg'){{ asset('uploads/users/images/female.png') }}@elseif(isset(Auth::user()->image)){{ asset('uploads/users/images') }}/{{ Auth::user()->image }}@endif" class="img-fluid mr-2" alt="avatar">
+                                    
+                                    {{-- @if (Auth::user()->gender == 'M')
+                                        <img src="{{ asset('uploads/users/images/male.png') }}" class="img-fluid mr-2" alt="avatar">
+                                    @elseif (Auth::user()->gender == 'F')
+                                        <img src="{{ asset('uploads/users/images/female.png') }}" class="img-fluid mr-2" alt="avatar">
+                                    @else <img src="{{ asset('uploads/users/images/default.jpg') }}" class="img-fluid mr-2" alt="avatar">
+                                    @endif --}}
 
-                                <img src="@if (Auth::user()->gender == 'M' && Auth::user()->image == 'default.jpg'){{ asset('uploads/users/images/male.png') }}@elseif(Auth::user()->gender == 'F' && Auth::user()->image == 'default.jpg'){{ asset('uploads/users/images/female.png') }}@elseif(isset(Auth::user()->image)){{ asset('uploads/users/images') }}/{{ Auth::user()->image }}@endif" class="img-fluid mr-2" alt="avatar">
-                                
-                                {{-- @if (Auth::user()->gender == 'M')
-                                    <img src="{{ asset('uploads/users/images/male.png') }}" class="img-fluid mr-2" alt="avatar">
-                                @elseif (Auth::user()->gender == 'F')
-                                    <img src="{{ asset('uploads/users/images/female.png') }}" class="img-fluid mr-2" alt="avatar">
-                                @else <img src="{{ asset('uploads/users/images/default.jpg') }}" class="img-fluid mr-2" alt="avatar">
-                                @endif --}}
-
-                                <div class="media-body">
-                                    <h5>{{ Auth::user()->name }}</h5>
-                                    <p>{{ Auth::user()->profession }}</p>
+                                    <div class="media-body">
+                                        <h5>{{ Auth::user()->name }}</h5>
+                                        <p>{{ Auth::user()->profession }}</p>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                         <div class="dropdown-item">
                             <a href="{{ route('user_profile') }}">
@@ -125,7 +126,7 @@
                     <figure class="user-cover-image"></figure>
                     <div class="user-info">
                         <a href="{{ route('user_profile') }}">
-                            <img src="@if (Auth::user()->gender == 'M' && Auth::user()->image == 'default.jpg'){{ asset('uploads/users/images/male.png') }}@elseif(Auth::user()->gender == 'F' && Auth::user()->image == 'default.jpg'){{ asset('uploads/users/images/female.png') }}@elseif(isset(Auth::user()->image)){{ asset('uploads/users/images') }}/{{ Auth::user()->image }}@endif" alt="avatar">
+                            <img style="width: 90px; height: 90px; object-fit: cover" src="@if (Auth::user()->gender == 'M' && Auth::user()->image == 'default.jpg'){{ asset('uploads/users/images/male.png') }}@elseif(Auth::user()->gender == 'F' && Auth::user()->image == 'default.jpg'){{ asset('uploads/users/images/female.png') }}@elseif(isset(Auth::user()->image)){{ asset('uploads/users/images') }}/{{ Auth::user()->image }}@endif" alt="avatar">
                             {{-- @if (Auth::user()->gender == 'M')
                                 <img src="{{ asset('uploads/users/images/male.png') }}" alt="avatar">
                             @elseif(Auth::user()->gender == 'F')
@@ -246,10 +247,10 @@
             </div>
             <div class="footer-wrapper">
                 <div class="footer-section f-section-1">
-                    <p class="">Copyright © 2020 <a target="_blank" href="https://designreset.com/">DesignReset</a>, All rights reserved.</p>
+                    <p class="">Copyright © 2020 <a target="_blank" href="https://designreset.com/">Muntaser Muttaqi</a>, All rights reserved.</p>
                 </div>
                 <div class="footer-section f-section-2">
-                    <p class="">Coded with <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></p>
+                    <p class="">Coded with Muntaser Muttaqi <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></p>
                 </div>
             </div>
         </div>

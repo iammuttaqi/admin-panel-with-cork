@@ -36,7 +36,7 @@
                                 <a href="#" class="d-flex">
                                     <div class="usr-img-frame mr-2 rounded-circle">
 
-                                        <img src="@if ($user->gender == 'M' && $user->image == 'default.jpg'){{ asset('uploads/users/images/male.png') }}@elseif($user->gender == 'F' && $user->image == 'default.jpg'){{ asset('uploads/users/images/female.png') }}@elseif(isset($user->image)){{ asset('uploads/users/images') }}/{{ $user->image }}@endif" class="img-fluid rounded-circle" alt="avatar">
+                                        <img style="width: 100%; height: 100%; object-fit: cover" src="@if ($user->gender == 'M' && $user->image == 'default.jpg'){{ asset('uploads/users/images/male.png') }}@elseif($user->gender == 'F' && $user->image == 'default.jpg'){{ asset('uploads/users/images/female.png') }}@elseif(isset($user->image)){{ asset('uploads/users/images') }}/{{ $user->image }}@endif" class="img-fluid rounded-circle" alt="avatar">
 
                                         {{-- @if ($user->gender == 'M')
                                             <img alt="avatar" class="img-fluid rounded-circle" src="{{ asset('uploads/users/images/male.png') }}">
