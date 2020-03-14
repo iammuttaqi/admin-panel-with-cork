@@ -36,12 +36,14 @@
                                 <a href="#" class="d-flex">
                                     <div class="usr-img-frame mr-2 rounded-circle">
 
-                                        @if ($user->gender == 'M')
+                                        <img src="@if ($user->gender == 'M' && $user->image == 'default.jpg'){{ asset('uploads/users/images/male.png') }}@elseif($user->gender == 'F' && $user->image == 'default.jpg'){{ asset('uploads/users/images/female.png') }}@elseif(isset($user->image)){{ asset('uploads/users/images') }}/{{ $user->image }}@endif" class="img-fluid rounded-circle" alt="avatar">
+
+                                        {{-- @if ($user->gender == 'M')
                                             <img alt="avatar" class="img-fluid rounded-circle" src="{{ asset('uploads/users/images/male.png') }}">
                                         @elseif ($user->gender == 'F')
                                             <img alt="avatar" class="img-fluid rounded-circle" src="{{ asset('uploads/users/images/female.png') }}">
                                         @else <img alt="avatar" class="img-fluid rounded-circle" src="{{ asset('uploads/users/images/default.jpg') }}">
-                                        @endif
+                                        @endif --}}
                                         
                                     </div>
                                     <p class="align-self-center mb-0 admin-name"> {{ $user->name }} </p>

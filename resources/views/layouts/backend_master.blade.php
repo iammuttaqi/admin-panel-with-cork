@@ -65,7 +65,7 @@
                         <div class="user-profile-section">
                             <div class="media mx-auto">
 
-                                <img src="@if ($getUser->gender == 'M' && $getUser->image == 'default.jpg'){{ asset('uploads/users/images/male.png') }}@elseif($getUser->gender == 'F' && $getUser->image == 'default.jpg'){{ asset('uploads/users/images/female.png') }}@elseif(isset($getUser->image)){{ asset('uploads/users/images') }}/{{ $getUser->image }}@endif" class="img-fluid mr-2" alt="avatar">
+                                <img src="@if (Auth::user()->gender == 'M' && Auth::user()->image == 'default.jpg'){{ asset('uploads/users/images/male.png') }}@elseif(Auth::user()->gender == 'F' && Auth::user()->image == 'default.jpg'){{ asset('uploads/users/images/female.png') }}@elseif(isset(Auth::user()->image)){{ asset('uploads/users/images') }}/{{ Auth::user()->image }}@endif" class="img-fluid mr-2" alt="avatar">
                                 
                                 {{-- @if (Auth::user()->gender == 'M')
                                     <img src="{{ asset('uploads/users/images/male.png') }}" class="img-fluid mr-2" alt="avatar">
@@ -125,7 +125,7 @@
                     <figure class="user-cover-image"></figure>
                     <div class="user-info">
                         <a href="{{ route('user_profile') }}">
-                            <img src="@if ($getUser->gender == 'M' && $getUser->image == 'default.jpg'){{ asset('uploads/users/images/male.png') }}@elseif($getUser->gender == 'F' && $getUser->image == 'default.jpg'){{ asset('uploads/users/images/female.png') }}@elseif(isset($getUser->image)){{ asset('uploads/users/images') }}/{{ $getUser->image }}@endif" alt="avatar">
+                            <img src="@if (Auth::user()->gender == 'M' && Auth::user()->image == 'default.jpg'){{ asset('uploads/users/images/male.png') }}@elseif(Auth::user()->gender == 'F' && Auth::user()->image == 'default.jpg'){{ asset('uploads/users/images/female.png') }}@elseif(isset(Auth::user()->image)){{ asset('uploads/users/images') }}/{{ Auth::user()->image }}@endif" alt="avatar">
                             {{-- @if (Auth::user()->gender == 'M')
                                 <img src="{{ asset('uploads/users/images/male.png') }}" alt="avatar">
                             @elseif(Auth::user()->gender == 'F')
