@@ -375,12 +375,13 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `users_username_unique` (`username`),
   KEY `users_country_id_foreign` (`country_id`),
   CONSTRAINT `users_country_id_foreign` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table admin-panel.users: ~1 rows (approximately)
+-- Dumping data for table admin-panel.users: ~2 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `username`, `bio`, `image`, `gender`, `profession`, `birthday`, `address`, `country_id`, `location`, `phone`, `website`, `facebook`, `twitter`, `instagram`, `github`, `role`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
-	(1, 'Muntaser Muttaqi', 'admin@admin.com', NULL, '$2y$10$fNTqZh1IXwC4FKN4Q5jldeplxj.Pi9hDDvbZF5JQPslOTjBjkaehW', 'admin', _binary 0x4920616D206D756E7461736572206D757474617169, '2020-03-14-08-47-49.jpg', 'F', 'Web Developer', '1998-09-30', 'Nizkunjara', 19, 'Feni', '+880 1863250879', 'https://m-muttaqi.github.io/muttaqi.com', 'muntaser.muttaqi', 'iammuttaqi', 'iammuttaqi', 'm-muttaqi', 2, 1, 'WDxW5E4VvcQLJ3Y7ImA7m1evXQ1GN51RyGUHVp5KD9WaTHSrEXLaMIvp6oLc', '2020-03-14 05:35:59', '2020-03-14 08:47:49');
+	(1, 'Muntaser Muttaqi', 'admin@admin.com', NULL, '$2y$10$fNTqZh1IXwC4FKN4Q5jldeplxj.Pi9hDDvbZF5JQPslOTjBjkaehW', 'admin', _binary 0x4920616D206D756E7461736572206D757474617169, '2020-03-14-08-47-49.jpg', 'F', 'Web Developer', '1998-09-30', 'Nizkunjara', 19, 'Feni', '+880 1863250879', 'https://m-muttaqi.github.io/muttaqi.com', 'muntaser.muttaqi', 'iammuttaqi', 'iammuttaqi', 'm-muttaqi', 2, 1, 'Nc1SArIzSYIjQPVQSBMkY63LYjN7DVzzmOfjmHG6Eibyc7rfn1fZ5lkUM0Ga', '2020-03-14 05:35:59', '2020-03-14 08:47:49'),
+	(2, 'Black Widow', 'black@widow.com', NULL, '$2y$10$gePwzV693Qmkn5VXILnUCugn6vgnhccLuvnMPWPIvtzorqksvPO8u', 'blackwidow', _binary 0x54686572652773206C6F74206D6F72652073746F7279, '2020-03-14-09-05-51.jpg', 'F', 'Avengers', '1984-11-22', 'Avengers Compound', 236, 'New York', '+123456789', 'https://marvel.com', 'blackwidow', 'blackwidow', 'blackwidow', NULL, 0, 1, NULL, '2020-03-14 09:03:32', '2020-03-14 09:05:51');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
