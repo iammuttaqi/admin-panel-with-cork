@@ -117,11 +117,11 @@
                             <form id="work-platforms" class="section work-platforms">
                                 <div class="info">
                                     <h5 class="">Work Platforms</h5>
-                                    <div class="row">
+                                    <div class="row" id="appendWorkHere">
                                         <div class="col-md-12 text-right mb-5">
                                             <button id="add-work-platforms" class="btn btn-primary">Add</button>
                                         </div>
-                                        <div id="appendWorkHere" class="col-md-11 mx-auto">
+                                        <div class="col-md-11 mx-auto">
                                             <div class="platform-div">
                                                 <div class="form-group">
                                                     <label for="platform-title">Platforms Title</label>
@@ -714,7 +714,11 @@
 
         $('#add-work-platforms').on('click', function(){
             event.preventDefault()
-            $('#appendWorkHere').append('<div class="platform-div">'+
+            $('#appendWorkHere').append('<div class="col-md-12 text-right mb-5">'+
+                                            '<button id="add-work-platforms" class="btn btn-primary">Add</button>'+
+                                        '</div>'+
+                                        '<div class="col-md-11 mx-auto">'+
+                                            '<div class="platform-div">'+
                                                 '<div class="form-group">'+
                                                     '<label for="platform-title">Platforms Title</label>'+
                                                     '<input type="text" class="form-control mb-4" id="platform-title" placeholder="Platforms Title" value="" >'+
@@ -723,7 +727,8 @@
                                                     '<label for="platform-description">Description</label>'+
                                                     '<textarea class="form-control mb-4" id="platform-description" placeholder="Platforms Description" rows="10"></textarea>'+
                                                 '</div>'+
-                                            '</div>');
+                                            '</div>'+
+                                        '</div>');
         });
 
 	</script>
