@@ -28,12 +28,13 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `categories_category_slug_unique` (`category_slug`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table admin-panel.categories: ~1 rows (approximately)
+-- Dumping data for table admin-panel.categories: ~2 rows (approximately)
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
 INSERT INTO `categories` (`id`, `category_name`, `category_slug`, `category_description`, `status`, `menu_status`, `created_at`, `updated_at`) VALUES
-	(1, 'Men', 'men', _binary 0x43617465676F727920666F72204D656E, 1, 1, '2020-03-14 09:53:34', '2020-03-14 10:15:03');
+	(1, 'Men', 'men', _binary 0x43617465676F727920666F72204D656E, 1, 1, '2020-03-14 09:53:34', '2020-03-14 10:15:03'),
+	(2, 'Woman', 'woman', _binary 0x43617465676F727920666F7220776F6D616E, 1, 1, '2020-03-15 06:33:00', '2020-03-15 06:33:00');
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 
 -- Dumping structure for table admin-panel.countries
@@ -377,14 +378,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `users_username_unique` (`username`),
   KEY `users_country_id_foreign` (`country_id`),
   CONSTRAINT `users_country_id_foreign` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table admin-panel.users: ~3 rows (approximately)
+-- Dumping data for table admin-panel.users: ~4 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `username`, `bio`, `image`, `gender`, `profession`, `birthday`, `address`, `country_id`, `location`, `phone`, `website`, `facebook`, `twitter`, `instagram`, `github`, `role`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
-	(1, 'Muntaser Muttaqi', 'admin@admin.com', NULL, '$2y$10$fNTqZh1IXwC4FKN4Q5jldeplxj.Pi9hDDvbZF5JQPslOTjBjkaehW', 'admin', _binary 0x4920616D206D756E7461736572206D757474617169, 'Muntaser Muttaqi-2020-03-14-10-18-56.jpg', 'M', 'Web Developer', '1998-09-30', 'Nizkunjara', 19, 'Feni', '+880 1863250879', 'https://m-muttaqi.github.io/muttaqi.com', 'muntaser.muttaqi', 'iammuttaqi', 'iammuttaqi', 'm-muttaqi', 2, 1, 'DZUrMadhFeXn7Jtw2FCp2HHxZ0nYwNpyTOjEezRbpoQpoZeQaamQjrENQ1cV', '2020-03-14 05:35:59', '2020-03-14 10:20:24'),
-	(2, 'Black Widow', 'black@widow.com', NULL, '$2y$10$gePwzV693Qmkn5VXILnUCugn6vgnhccLuvnMPWPIvtzorqksvPO8u', 'blackwidow', _binary 0x54686572652773206C6F74206D6F72652073746F7279, 'Black Widow-2020-03-14-10-12-50.jpg', 'F', 'Avengers', '1984-11-22', 'Avengers Compound', 236, 'New York', '+123456789', 'https://marvel.com', 'blackwidow', 'blackwidow', 'blackwidow', NULL, 1, 1, NULL, '2020-03-14 09:03:32', '2020-03-14 10:12:50'),
-	(3, 'Captain America', 'captain@america.com', NULL, '$2y$10$4/XqS6FTZ8yEFt17en6zreLgEB8vKS5F1fvSUkz9xp8hAGnL0Q20a', 'captainamreica', _binary 0x4176656E6765727320417373656D626C6521, '3. Captain America-2020-03-14-11-15-19.jpg', 'M', 'Avengers', '1920-07-04', 'Avengers Compound', 236, 'New York', '+1234567899', 'https://marvel.com', 'captainamerica', 'captainamerica', 'captainamerica', NULL, 0, 1, NULL, '2020-03-14 10:23:14', '2020-03-14 11:15:19');
+	(1, 'Muntaser Muttaqi', 'admin@admin.com', NULL, '$2y$10$fNTqZh1IXwC4FKN4Q5jldeplxj.Pi9hDDvbZF5JQPslOTjBjkaehW', 'admin', _binary 0x4920616D206D756E7461736572206D757474617169, '1. Muntaser Muttaqi-2020-03-15-06-54-58.jpg', 'M', 'Web Developer', '1998-09-30', 'Nizkunjara', 19, 'Feni', '+880 1863250879', 'https://m-muttaqi.github.io/muttaqi.com', 'muntaser.muttaqi', 'iammuttaqi', 'iammuttaqi', 'm-muttaqi', 2, 1, 'cVWmNfS1M2cF6aZV9BCk7JhjW072gDLYdGGi5FIdqE11Bg7JkXTP0o1AjMJg', '2020-03-14 05:35:59', '2020-03-15 06:54:58'),
+	(2, 'Black Widow', 'black@widow.com', NULL, '$2y$10$gePwzV693Qmkn5VXILnUCugn6vgnhccLuvnMPWPIvtzorqksvPO8u', 'blackwidow', _binary 0x54686572652773206C6F74206D6F72652073746F7279, '2. Black Widow-2020-03-15-06-56-00.jpg', 'F', 'Avengers', '1984-11-22', 'Avengers Compound', 236, 'New York', '+123456789', 'https://marvel.com', 'blackwidow', 'blackwidow', 'blackwidow', NULL, 1, 1, 'WWCkn2aPHesCVBU3cdZLeJEVPOWmyEXqqDebp79BBtOZgmPn5IDXvqmSlH5z', '2020-03-14 09:03:32', '2020-03-15 06:56:00'),
+	(3, 'Captain America', 'captain@america.com', NULL, '$2y$10$4/XqS6FTZ8yEFt17en6zreLgEB8vKS5F1fvSUkz9xp8hAGnL0Q20a', 'captainamreica', _binary 0x4176656E6765727320417373656D626C6521, '3. Captain America-2020-03-14-11-15-19.jpg', 'M', 'Avengers', '1920-07-04', 'Avengers Compound', 236, 'New York', '+1234567899', 'https://marvel.com', 'captainamerica', 'captainamerica', 'captainamerica', NULL, 0, 1, NULL, '2020-03-14 10:23:14', '2020-03-15 05:10:54'),
+	(4, 'Thor Odinson', 'thor@odinson.com', NULL, '$2y$10$WrDh/EsFoLjigQ2cVEkfOe6GX16q6DT2pSIUi4KgczSMSvgv6oaS6', 'thor', _binary 0x546865206F6E6C79207468696E67206973207065726D616E656E7420696E20696D7065726D616E656E6365, '4. Thor Odinson-2020-03-15-07-11-07.jpg', 'M', 'Avengers', '0520-03-15', 'New Asgard', 236, 'Norway', '+47 123456789', 'https://en.wikipedia.org/wiki/Thor_(Marvel_Cinematic_Universe)', 'thor', 'thor', 'thor', NULL, 0, 1, NULL, '2020-03-15 06:57:31', '2020-03-15 07:33:02');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
