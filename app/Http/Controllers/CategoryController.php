@@ -17,6 +17,10 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         if ($request->isMethod('post')) {
+            $request->validate([
+                'category_name' => 'required',
+                'category_description' => 'required'
+            ]);
             if (isset($request->menu_status)) {
                 Category::insert([
                     'category_name'         => ucfirst($request->category_name),

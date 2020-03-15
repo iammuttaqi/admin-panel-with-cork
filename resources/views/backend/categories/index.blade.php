@@ -278,4 +278,6 @@
 
     </script>
 
+    <script src="{{ asset('backend_assets/assets/js/forms/bootstrap_validation/bs_validation_script.js') }}"></script>
+
 @endsection

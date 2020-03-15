@@ -37,13 +37,6 @@
                                     <div class="usr-img-frame mr-2 rounded-circle">
 
                                         <img style="width: 100%; height: 100%; object-fit: cover" src="@if ($user->gender == 'M' && $user->image == 'default.jpg'){{ asset('uploads/users/images/male.png') }}@elseif($user->gender == 'F' && $user->image == 'default.jpg'){{ asset('uploads/users/images/female.png') }}@elseif(isset($user->image)){{ asset('uploads/users/images') }}/{{ $user->image }}@endif" class="img-fluid rounded-circle" alt="avatar">
-
-                                        {{-- @if ($user->gender == 'M')
-                                            <img alt="avatar" class="img-fluid rounded-circle" src="{{ asset('uploads/users/images/male.png') }}">
-                                        @elseif ($user->gender == 'F')
-                                            <img alt="avatar" class="img-fluid rounded-circle" src="{{ asset('uploads/users/images/female.png') }}">
-                                        @else <img alt="avatar" class="img-fluid rounded-circle" src="{{ asset('uploads/users/images/default.jpg') }}">
-                                        @endif --}}
                                         
                                     </div>
                                     <p class="align-self-center mb-0 admin-name"> {{ $user->name }} </p>
@@ -54,13 +47,19 @@
                             <td>{{ $user->profession ? $user->profession : '--' }}</td>
                             <td>
                                 @if ($user->role == 0)
-                                <a href="#" class="btn btn-sm btn-info btn-rounded mb-2">User</a>
+                                    <span class="badge badge-info mt-3 mb-3 ml-2 position-relative">
+                                        <span class="text">User</span>
+                                    </span>
                                 @endif
                                 @if ($user->role == 1)
-                                <a href="#" class="btn btn-sm btn-warning btn-rounded mb-2">Moderator</a>
+                                    <span class="badge badge-warning mt-3 mb-3 ml-2 position-relative">
+                                        <span class="text">Moderator</span>
+                                    </span>
                                 @endif
                                 @if ($user->role == 2)
-                                <a class="btn btn-sm btn-success btn-rounded mb-2">Admin</a>
+                                    <span class="badge badge-success mt-3 mb-3 ml-2 position-relative">
+                                        <span class="text">Admin</span>
+                                    </span>
                                 @endif
                             </td>
                             <td>
@@ -72,7 +71,10 @@
                                     <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                                 </a>
 
-                                <a class="btn btn-sm btn-warning mb-2 mr-2 btn-rounded bs-tooltip" title="Edit" data-placement="top" data-delay="300">
+                                <a href="@if ($user->id == Auth::user()->id)
+                                    {{ route('user_profile_setting') }}
+                                    @else javascript:void(0)
+                                @endif" class="btn btn-sm btn-warning mb-2 mr-2 btn-rounded bs-tooltip" title="Edit" data-placement="top" data-delay="300">
                                     <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
                                 </a>
 
