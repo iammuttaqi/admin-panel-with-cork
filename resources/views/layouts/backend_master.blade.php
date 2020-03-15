@@ -6,7 +6,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Admin - @yield('title')</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('backend_assets/assets/img/favicon.ico') }}"/>
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
@@ -63,23 +62,13 @@
                     </a>
                     <div class="dropdown-menu position-absolute animated fadeInUp" aria-labelledby="userProfileDropdown">
                         <div class="user-profile-section">
-                            <a href="{{ route('user_profile') }}">
-                                <div class="media mx-auto">
-                                    <img style="width: 40px; height: 40px; object-fit: cover" src="@if (Auth::user()->gender == 'M' && Auth::user()->image == 'default.jpg'){{ asset('uploads/users/images/male.png') }}@elseif(Auth::user()->gender == 'F' && Auth::user()->image == 'default.jpg'){{ asset('uploads/users/images/female.png') }}@elseif(isset(Auth::user()->image)){{ asset('uploads/users/images') }}/{{ Auth::user()->image }}@endif" class="img-fluid mr-2" alt="avatar">
-                                    
-                                    {{-- @if (Auth::user()->gender == 'M')
-                                        <img src="{{ asset('uploads/users/images/male.png') }}" class="img-fluid mr-2" alt="avatar">
-                                    @elseif (Auth::user()->gender == 'F')
-                                        <img src="{{ asset('uploads/users/images/female.png') }}" class="img-fluid mr-2" alt="avatar">
-                                    @else <img src="{{ asset('uploads/users/images/default.jpg') }}" class="img-fluid mr-2" alt="avatar">
-                                    @endif --}}
-
-                                    <div class="media-body">
-                                        <h5>{{ Auth::user()->name }}</h5>
-                                        <p>{{ Auth::user()->profession }}</p>
-                                    </div>
+                            <div class="media mx-auto">
+                                <img style="object-fit: cover" src="@if (Auth::user()->gender == 'M' && Auth::user()->image == 'default.jpg'){{ asset('uploads/users/images/male.png') }}@elseif(Auth::user()->gender == 'F' && Auth::user()->image == 'default.jpg'){{ asset('uploads/users/images/female.png') }}@elseif(isset(Auth::user()->image)){{ asset('uploads/users/images') }}/{{ Auth::user()->image }}@endif" class="img-fluid mr-2" alt="avatar">
+                                <div class="media-body">
+                                    <h5>{{ Auth::user()->name }}</h5>
+                                    <p>{{ Auth::user()->profession }}</p>
                                 </div>
-                            </a>
+                            </div>
                         </div>
                         <div class="dropdown-item">
                             <a href="{{ route('user_profile') }}">
@@ -97,8 +86,7 @@
                             </a>
                         </div>
                         <div class="dropdown-item">
-                            <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg> <span>Log Out</span>
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -126,25 +114,17 @@
                     <figure class="user-cover-image"></figure>
                     <div class="user-info">
                         <a href="{{ route('user_profile') }}">
-                            <img style="width: 90px; height: 90px; object-fit: cover" src="@if (Auth::user()->gender == 'M' && Auth::user()->image == 'default.jpg'){{ asset('uploads/users/images/male.png') }}@elseif(Auth::user()->gender == 'F' && Auth::user()->image == 'default.jpg'){{ asset('uploads/users/images/female.png') }}@elseif(isset(Auth::user()->image)){{ asset('uploads/users/images') }}/{{ Auth::user()->image }}@endif" alt="avatar">
-                            {{-- @if (Auth::user()->gender == 'M')
-                                <img src="{{ asset('uploads/users/images/male.png') }}" alt="avatar">
-                            @elseif(Auth::user()->gender == 'F')
-                                <img src="{{ asset('uploads/users/images/female.png') }}" alt="avatar">
-                            @else <img src="{{ asset('uploads/users/images/default.jpg') }}" alt="avatar">
-                            @endif --}}
-                        </a>
-                        <a href="{{ route('user_profile') }}">
-                        <h6 class="">{{ Auth::user()->name }}</h6>
+                            <img style="object-fit: cover" src="@if (Auth::user()->gender == 'M' && Auth::user()->image == 'default.jpg'){{ asset('uploads/users/images/male.png') }}@elseif(Auth::user()->gender == 'F' && Auth::user()->image == 'default.jpg'){{ asset('uploads/users/images/female.png') }}@elseif(isset(Auth::user()->image)){{ asset('uploads/users/images') }}/{{ Auth::user()->image }}@endif" alt="avatar">
+                            <h6 class="">{{ Auth::user()->name }}</h6>
                         </a>
                         <p class="">{{ Auth::user()->profession }}</p>
                     </div>
                 </div>
                 <div class="shadow-bottom"></div>
                 <ul class="list-unstyled menu-categories" id="accordionExample">
-
+                    
                     <li class="menu {{ (request()->routeIs('home')) ? 'active' : '' }}">
-                        <a href="{{ route('home') }}" aria-expanded="false" class="dropdown-toggle">
+                        <a href="{{ route('home') }}" aria-expanded="{{ (request()->routeIs('home')) ? 'true' : 'false' }}" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                                 <span> Dashboard</span>
@@ -153,7 +133,7 @@
                     </li>
 
                     <li class="menu {{ (request()->routeIs('categories')) ? 'active' : '' }}">
-                        <a href="{{ route('categories') }}" aria-expanded="false" class="dropdown-toggle">
+                        <a href="{{ route('categories') }}" aria-expanded="{{ (request()->routeIs('categories')) ? 'true' : 'false' }}" class="dropdown-toggle">
                             <div class="">
                                 <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1" Googl="true"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
                                 <span> Categories</span>
@@ -181,37 +161,6 @@
                         </ul>
                     </li>
 
-                    <li class="menu">
-                        <a href="#submenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                            <div class="">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
-                                <span> Menu 3</span>
-                            </div>
-                            <div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                            </div>
-                        </a>
-                        <ul class="collapse submenu list-unstyled" id="submenu2" data-parent="#accordionExample">
-                            <li>
-                                <a href="javascript:void(0);"> Submenu 1 </a>
-                            </li>
-                            <li>
-                                <a href="#sm2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"> Submenu 2 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg> </a>
-                                <ul class="collapse list-unstyled sub-submenu" id="sm2" data-parent="#submenu2"> 
-                                    <li>
-                                        <a href="javascript:void(0);"> Sub-Submenu 1 </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);"> Sub-Submenu 2 </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);"> Sub-Submenu 3 </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-
                 </ul>
                 
             </nav>
@@ -233,6 +182,10 @@
                         <div class="widget-content-area br-4">
                             <div class="widget-one">
 
+                                <h6>Blank Page - Kick Start you new project with ease!</h6>
+
+                                <p class="">With CORK starter kit, you can begin your work without any hassle. The starter page is highly optimized which gives you freedom to start with minimal code and add only the desired components and plugins required for your project.</p>
+
                             </div>
                         </div>
                     </div>
@@ -247,10 +200,10 @@
             </div>
             <div class="footer-wrapper">
                 <div class="footer-section f-section-1">
-                    <p class="">Copyright © 2020 <a target="_blank" href="https://designreset.com/">Muntaser Muttaqi</a>, All rights reserved.</p>
+                    <p class="">Copyright © 2020 <a target="_blank" href="https://designreset.com/">DesignReset</a>, All rights reserved.</p>
                 </div>
                 <div class="footer-section f-section-2">
-                    <p class="">Coded with Muntaser Muttaqi <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></p>
+                    <p class="">Coded with <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></p>
                 </div>
             </div>
         </div>
@@ -271,7 +224,6 @@
             App.init();
         });
     </script>
-
     <script src="{{ asset('backend_assets/assets/js/custom.js') }}"></script>
     <!-- END GLOBAL MANDATORY SCRIPTS -->
 
