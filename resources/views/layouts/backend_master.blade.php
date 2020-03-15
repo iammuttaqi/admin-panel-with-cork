@@ -141,6 +141,15 @@
                         </a>
                     </li>
 
+                    <li class="menu {{ (request()->routeIs('user_profile')) ? 'active' : '' }}">
+                        <a href="{{ route('user_profile') }}" aria-expanded="{{ (request()->routeIs('user_profile')) || (request()->routeIs('user_profile_setting')) ? 'true' : 'false' }}" class="dropdown-toggle">
+                            <div class="">
+                                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                <span> My Profile</span>
+                            </div>
+                        </a>
+                    </li>
+
                     <li class="menu">
                         <a href="#submenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
