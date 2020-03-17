@@ -77,6 +77,7 @@ class HomeController extends Controller
                     User::where('id', $getUser->id)->update([
                         'image' => $filename,
                     ]);
+                    return response('Profile Updated Successfully');
                 }
                 else {
                     //delete old image
@@ -91,6 +92,7 @@ class HomeController extends Controller
                     User::where('id', $getUser->id)->update([
                         'image' => $filename,
                     ]);
+                    return response('Profile Updated Successfully');
                 }
             }
         }

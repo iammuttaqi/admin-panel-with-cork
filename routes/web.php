@@ -39,11 +39,13 @@ Route::group(['middleware' => 'auth'], function() {
 
     	Route::match(['get', 'post'], '/delete/{id}', 'CategoryController@destroy')->name('category_delete');
 
-    	Route::match(['get', 'post'], '/menu/status/{id}', 'CategoryController@menuStatusChange')->name('cateogory_menu_status_change');
+    	Route::match(['get', 'post'], '/menu/status/{id}', 'CategoryController@menuStatusChange')->name('category_menu_status_change');
 
     	Route::match(['get', 'post'], '/status/{id}', 'CategoryController@categoryStatusChange')->name('category_status_change');
 
     	Route::match(['get', 'post'], '/update/{id}', 'CategoryController@update')->name('category_udpate');
+
+        Route::match(['get', 'post'], '/new/data', 'CategoryController@newCategoryData')->name('get_new_category_data');
 
     });
 
