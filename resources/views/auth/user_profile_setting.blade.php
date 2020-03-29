@@ -12,6 +12,11 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('backend_assets/plugins/select2/select2.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('backend_assets/plugins/bootstrap-select/bootstrap-select.min.css') }}">
 <link rel="stylesheet" href="{{ asset('backend_assets/plugins/editors/markdown/simplemde.min.css') }}">
+<link href="{{ asset('backend_assets/plugins/animate/animate.css') }}" rel="stylesheet" type="text/css" />
+<script src="{{ asset('backend_assets/plugins/sweetalerts/promise-polyfill.js') }}"></script>
+<link href="{{ asset('backend_assets/plugins/sweetalerts/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('backend_assets/plugins/sweetalerts/sweetalert.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('backend_assets/assets/css/components/custom-sweetalert.css') }}" rel="stylesheet" type="text/css" />
 
 <style type="text/css">
     .dropify-render img {
@@ -110,23 +115,7 @@
                     <form id="work-platforms" class="section work-platforms">
                         <div class="info">
                             <h5 class="">Work Platforms</h5>
-                            {{-- <div class="row" id="appendWorkHere">
-                                <div class="col-md-12 text-right mb-5">
-                                    <button id="add-work-platforms" class="btn btn-primary">Add</button>
-                                </div>
-                                <div class="col-md-11 mx-auto">
-                                    <div class="platform-div">
-                                        <div class="form-group">
-                                            <label for="platform-title">Platforms Title</label>
-                                            <input type="text" class="form-control mb-4" id="platform-title" placeholder="Platforms Title" value="" >
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="platform-description">Description</label>
-                                            <textarea class="form-control mb-4" id="platform-description" placeholder="Platforms Description" rows="10"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> --}}
+                            
                         </div>
                     </form>
                 </div>
@@ -606,9 +595,6 @@
     <div class="account-settings-footer">
         <div class="as-footer-container">
             <button id="multiple-reset" class="btn btn-warning">Reset All</button>
-            <div class="blockui-growl-message">
-                <i class="flaticon-double-check"></i>&nbsp; <span id="successMessage"></span>
-            </div>
             <button type="submit" id="SaveChanges" class="btn btn-primary">Save Changes</button>
         </div>
     </div>
@@ -631,9 +617,26 @@
 <script src="{{ asset('backend_assets/plugins/editors/markdown/custom-markdown.js') }}"></script>
 <script src="{{ asset('backend_assets/plugins/input-mask/jquery.inputmask.bundle.min.js') }}"></script>
 <script src="{{ asset('backend_assets/plugins/input-mask/input-mask.js') }}"></script>
+<script src="{{ asset('backend_assets/plugins/sweetalerts/sweetalert2.min.js') }}"></script>
+<script src="{{ asset('backend_assets/plugins/sweetalerts/custom-sweetalert.js') }}"></script>
 
 <script type="text/javascript">
     $('#SaveChanges').on('click', function(){
+
+        var formData = new FormData();
+        var image = $('#uploadImage')[0].files[0];
+        formData.append('image',image);
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type:'POST',
+            url: '{{ route("user_image_upload") }}',
+            data:formData,
+            contentType: false,
+            processData: false,
+        });
+
         var name = $('#name').val();
         var birthday = $('#basicFlatpickr').val();
         var profession = $('#profession').val();
@@ -675,49 +678,20 @@
                 location: location,
             },
             success: function(data) {
-                $('#successMessage').html(data);
+                swal({
+                  title: 'Success!',
+                  text: data,
+                  type: 'success',
+                  padding: '2em'
+                });
             }
         });
-    });
 
-    //upload image
-    $('#SaveChanges').on('click', function(){
-        var formData = new FormData();
-        var image = $('#uploadImage')[0].files[0];
-        formData.append('image',image);
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            type:'POST',
-            url: '{{ route("user_image_upload") }}',
-            data:formData,
-            contentType: false,
-            processData: false,
-        });
     });
     
     //select2
     var ss = $(".selectCountry").select2({
-    tags: true,
-    });
-    $('#add-work-platforms').on('click', function(){
-    event.preventDefault()
-    $('#appendWorkHere').append('<div class="col-md-12 text-right mb-5">'+
-        '<button id="add-work-platforms" class="btn btn-primary">Add</button>'+
-    '</div>'+
-    '<div class="col-md-11 mx-auto">'+
-        '<div class="platform-div">'+
-            '<div class="form-group">'+
-                '<label for="platform-title">Platforms Title</label>'+
-                '<input type="text" class="form-control mb-4" id="platform-title" placeholder="Platforms Title" value="" >'+
-            '</div>'+
-            '<div class="form-group">'+
-                '<label for="platform-description">Description</label>'+
-                '<textarea class="form-control mb-4" id="platform-description" placeholder="Platforms Description" rows="10"></textarea>'+
-            '</div>'+
-        '</div>'+
-    '</div>');
+        tags: true,
     });
 
     $("#phone").inputmask({mask:"(880) 9999-999-999"});
