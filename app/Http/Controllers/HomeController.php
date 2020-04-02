@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Country;
+use App\WorkPlatform;
 use Auth;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -33,7 +35,8 @@ class HomeController extends Controller
     public function userProfile()
     {
         $getUser = Auth::user();
-        return view('auth/user_profile', compact('getUser'));
+        $getWorkPlatforms = WorkPlatform::where('user_id', $getUser->id)->get();
+        return view('auth/user_profile', compact('getUser', 'getWorkPlatforms'));
     }
 
     public function userProfileSetting(Request $request)
@@ -61,7 +64,8 @@ class HomeController extends Controller
             return response('Profile Updated Successfully');
         }
         $getCountries = Country::all();
-        return view('auth/user_profile_setting', compact('getUser', 'getCountries'));
+        $getWorkPlatforms = WorkPlatform::where('user_id', $getUser->id)->get();
+        return view('auth/user_profile_setting', compact('getUser', 'getCountries', 'getWorkPlatforms'));
     }
 
     public function userImageUpload(Request $request)
@@ -96,5 +100,37 @@ class HomeController extends Controller
                 }
             }
         }
+    }
+
+    public function workPlatformAdd(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            WorkPlatform::insert([
+                'work_platform' => $request->work_platform,
+                'platform_description' => $request->platform_description,
+                'user_id' => Auth::user()->id,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+            return back()->with('alert-success', 'Work Platform added successfully');
+        }
+    }
+
+    public function workPlatformUpdate(Request $request, $id)
+    {
+        if ($request->isMethod('post')) {
+            WorkPlatform::where('id', $id)->update([
+                'work_platform' => $request->work_platform,
+                'platform_description' => $request->platform_description,
+                'updated_at' => Carbon::now(),
+            ]);
+            return back()->with('alert-success', 'Work Platform updated successfully');
+        }
+    }
+
+    public function workPlatformDelete($id)
+    {
+        WorkPlatform::where('id', $id)->delete();
+        return back()->with('alert-danger', 'Work Platform deleted');
     }
 }

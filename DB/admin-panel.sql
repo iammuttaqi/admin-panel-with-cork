@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
 -- Dumping data for table admin-panel.categories: ~8 rows (approximately)
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
 INSERT INTO `categories` (`id`, `category_name`, `category_slug`, `category_description`, `status`, `menu_status`, `created_at`, `updated_at`) VALUES
-	(1, 'Man', 'man', _binary 0x43617465676F727920666F72204D616E, 1, 1, '2020-03-30 19:04:33', '2020-03-30 19:04:33'),
+	(1, 'Man', 'man', _binary 0x43617465676F727920666F72204D616E, 1, 1, '2020-03-30 19:04:33', '2020-03-30 19:44:16'),
 	(2, 'Woman', 'woman', _binary 0x43617465676F727920666F7220576F6D616E73, 1, 1, '2020-03-30 19:04:47', '2020-03-30 19:04:47'),
 	(3, 'Child', 'child', _binary 0x43617465676F727920666F72206368696C64, 1, 0, '2020-03-30 19:05:09', '2020-03-30 19:05:09'),
 	(4, 'Recent', 'recent', _binary 0x726563656E742063617465676F7279, 1, 1, '2020-03-30 19:05:36', '2020-03-30 19:05:36'),
@@ -323,7 +323,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table admin-panel.migrations: ~5 rows (approximately)
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
@@ -332,7 +332,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 	(3, '2019_08_19_000000_create_failed_jobs_table', 1),
 	(4, '2020_03_12_092436_create_categories_table', 1),
 	(5, '2020_03_12_201855_create_countries_table', 1),
-	(8, '2014_10_12_000000_create_users_table', 2);
+	(8, '2014_10_12_000000_create_users_table', 2),
+	(9, '2020_03_31_234007_create_work_platforms_table', 3);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 
 -- Dumping structure for table admin-panel.password_resets
@@ -384,9 +385,31 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table admin-panel.users: ~2 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `username`, `bio`, `image`, `gender`, `profession`, `birthday`, `address`, `country_id`, `location`, `phone`, `website`, `facebook`, `twitter`, `instagram`, `github`, `role`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
-	(1, 'Muntaser Muttaqi', 'admin@admin.com', NULL, '$2y$10$tgmlyEFAcRtdbRyghfO/tOeyqYtlNxXT/suuVkKOBM3eXcppEUvFC', 'admin', _binary 0x4920616D204D756E7461736572204D757474617169, '1. Muntaser Muttaqi-2020-03-30-19-01-22.jpg', 'M', 'Web Developer', '1998-09-30', 'Nizkunjara', 19, 'Feni', '(880) 1863-250-879', 'https://m-muttaqi.github.io/muttaqi.com', 'muntaser.muttaqi', 'iammuttaqi', 'iammuttaqi', 'm-muttaqi', 2, 1, NULL, '2020-03-30 18:59:45', '2020-03-30 19:01:46'),
-	(2, 'Thor Odinson', 'thor@odinson.com', NULL, '$2y$10$By5GuK5NUB/CJ.l0/7QjjeJuI1LRoWWsH28Mz0nqVJbR2g.Hll6S2', 'thor', _binary 0x546865206F6E6C79207468696E67206973207065726D616E656E74206973206C69666520697320696D7065726D616E656E6365, '2. Thor Odinson-2020-03-30-19-13-03.jpg', 'M', 'Avengers', '0520-03-31', 'New Asgard', 166, 'Norway', '(880) 1234-567-890', 'https://marvel.com', 'thor', 'thor', 'thor', NULL, 0, 1, NULL, '2020-03-30 19:10:21', '2020-03-30 19:13:03');
+	(1, 'Muntaser Muttaqi', 'admin@admin.com', NULL, '$2y$10$tgmlyEFAcRtdbRyghfO/tOeyqYtlNxXT/suuVkKOBM3eXcppEUvFC', 'admin', _binary 0x4920616D204D756E7461736572204D757474617169, '1. Muntaser Muttaqi-2020-03-30-19-01-22.jpg', 'M', 'Web Developer', '1998-09-30', 'Nizkunjara', 19, 'Feni', '+8801863250879', 'https://m-muttaqi.github.io/muttaqi.com', 'muntaser.muttaqi', 'iammuttaqi', 'iammuttaqi', 'm-muttaqi', 2, 1, 'lgMvw5R2ZmkpYRqufqETKY3x1lj9PqgZ7tIlxCWYCoI8KEB1NT5f6HhfyllT', '2020-03-30 18:59:45', '2020-04-01 00:37:48'),
+	(2, 'Thor Odinson', 'thor@odinson.com', NULL, '$2y$10$By5GuK5NUB/CJ.l0/7QjjeJuI1LRoWWsH28Mz0nqVJbR2g.Hll6S2', 'thor', _binary 0x546865206F6E6C79207468696E67206973207065726D616E656E74206973206C69666520697320696D7065726D616E656E6365, '2. Thor Odinson-2020-03-30-19-13-03.jpg', 'M', 'Avengers', '0520-03-31', 'New Asgard', 166, 'Norway', '01234567890', 'https://marvel.com', 'thor', 'thor', 'thor', NULL, 0, 1, NULL, '2020-03-30 19:10:21', '2020-03-30 19:53:52');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
+
+-- Dumping structure for table admin-panel.work_platforms
+CREATE TABLE IF NOT EXISTS `work_platforms` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `work_platform` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `platform_description` blob NOT NULL,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `work_platforms_user_id_foreign` (`user_id`),
+  CONSTRAINT `work_platforms_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table admin-panel.work_platforms: ~4 rows (approximately)
+/*!40000 ALTER TABLE `work_platforms` DISABLE KEYS */;
+INSERT INTO `work_platforms` (`id`, `work_platform`, `platform_description`, `user_id`, `created_at`, `updated_at`) VALUES
+	(1, 'Web Developer', _binary 0x77656220646576656C6F70657220666F722033207965617273, 1, '2020-04-01 00:02:57', '2020-04-01 00:13:50'),
+	(2, 'Web Design', _binary 0x64657369676E657220666F722034207965617273, 1, '2020-04-01 00:04:33', '2020-04-01 00:13:01'),
+	(5, 'Photography', _binary 0x526F79616C20436F6C6C616765206F662041727420526F79616C20436F6C6C616765206F66204172742044657369676E657220496C6C7573747261746F7220526F79616C20436F6C6C616765206F66204172742044657369676E657220496C6C7573747261746F7220526F79616C20436F6C6C616765206F66204172742044657369676E657220496C6C7573747261746F7220526F79616C20436F6C6C616765206F66204172742044657369676E657220496C6C7573747261746F7220526F79616C20436F6C6C616765206F66204172742044657369676E657220496C6C7573747261746F722044657369676E657220496C6C7573747261746F72, 1, '2020-04-01 00:35:06', '2020-04-01 00:52:33'),
+	(6, 'Gaming', _binary 0x526F79616C20436F6C6C616765206F66204172740D0A0D0A44657369676E657220496C6C7573747261746F720D0A0D0A0D0A526F79616C20436F6C6C616765206F66204172740D0A0D0A44657369676E657220496C6C7573747261746F720D0A0D0A0D0A526F79616C20436F6C6C616765206F66204172740D0A0D0A44657369676E657220496C6C7573747261746F720D0A0D0A0D0A526F79616C20436F6C6C616765206F66204172740D0A0D0A44657369676E657220496C6C7573747261746F72, 1, '2020-04-01 00:35:18', '2020-04-01 00:37:00');
+/*!40000 ALTER TABLE `work_platforms` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

@@ -1,6 +1,6 @@
 @extends('layouts/backend_master')
 
-@section('title', 'Profile')
+@section('title', 'Edit Profile')
 
 @section('styles')
 
@@ -17,12 +17,20 @@
 <link href="{{ asset('backend_assets/plugins/sweetalerts/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('backend_assets/plugins/sweetalerts/sweetalert.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('backend_assets/assets/css/components/custom-sweetalert.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('backend_assets/assets/css/components/custom-modal.css') }}" rel="stylesheet" type="text/css" />
 
 <style type="text/css">
     .dropify-render img {
         width: 120px;
         height: 120px;
         object-fit: cover;
+    }
+    .modal-header {
+        height: 56px;
+    }
+
+    .modal-title {
+        text-transform: none !important;
     }
 </style>
 
@@ -33,6 +41,7 @@
 <div class="account-settings-container layout-top-spacing">
     <div class="account-content">
         <div class="scrollspy-example" data-spy="scroll" data-target="#account-settings-scroll" data-offset="-100">
+            @include('layouts/message')
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
                     <form id="general-info" class="section general-info">
@@ -112,12 +121,154 @@
                     </form>
                 </div>
                 <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
-                    <form id="work-platforms" class="section work-platforms">
+                    <div id="work-platforms" class="section work-platforms">
                         <div class="info">
                             <h5 class="">Work Platforms</h5>
-                            
+                            <div class="row">
+                                <div class="col-md-12 text-right mb-5">
+                                    <a id="add-work-platforms" class="btn btn-primary" data-toggle="modal" data-target="#workPlatformAdd">Add</a>
+                                </div>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="workPlatformAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Add Work Platform</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <form class="simple-example" action="{{ route('work_platform_add') }}" method="post" novalidate>
+                                                @csrf
+                                                <div class="modal-body">
+                                                    <div class="form-row">
+                                                        <div class="col-md-12 mb-4">
+                                                            <label for="workPlatform">Work Platform</label>
+                                                            <input type="text" class="form-control" name="work_platform" id="workPlatform" value="{{ old('work_platform') }}" required>
+                                                        </div>
+                                                        <div class="col-md-12 mb-4">
+                                                            <label for="platformDescription">Platform Description</label>
+                                                            <textarea class="form-control" name="platform_description" id="platformDescription" required>
+                                                                {{ old('platform_description') }}
+                                                            </textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
+                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-11 mx-auto">
+                                    @if (isset($getWorkPlatforms))
+                                    <table id="multi-column-ordering" class="table table-hover" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Sl. No</th>
+                                                <th>Work Platform</th>
+                                                <th>Platform Description</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($getWorkPlatforms as $workPlatform)
+                                                <tr>
+                                                    <td>{{ $loop->index+1 }}</td>
+                                                    <td>{{ $workPlatform->work_platform }}</td>
+                                                    <td>{{ Str::limit($workPlatform->platform_description, 20) }}</td>
+                                                    <td>
+                                                        <a class="btn btn-sm btn-info mb-2 mr-2 btn-rounded bs-tooltip" title="View" data-placement="top" data-delay="300">
+                                                            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                                        </a>
+                                                        
+                                                        <a class="btn btn-sm btn-warning mb-2 mr-2 btn-rounded bs-tooltip" title="Edit" data-placement="top" data-delay="300" data-toggle="modal" data-target="#platformEdit{{ $workPlatform->id }}">
+                                                            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                                                        </a>
+                                                        
+                                                        <a class="btn btn-sm btn-danger mb-2 mr-2 btn-rounded bs-tooltip" title="Delete" data-placement="top" data-toggle="modal" data-target="#deleteConformation{{ $workPlatform->id }}">
+                                                            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                                        </a>
+
+
+                                                    </td>
+                                                </tr>
+
+                                                <div class="modal fade" id="platformEdit{{ $workPlatform->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Edit Platform - <strong>{{ $workPlatform->work_platform }}</strong></h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <form class="simple-example" action="{{ route('work_platform_update', $workPlatform->id) }}" method="post" novalidate>
+                                                                    @csrf
+                                                                    <div class="modal-body">
+                                                                        <div class="form-row">
+                                                                            <div class="col-md-12 mb-4">
+                                                                                <label for="workPlatform">Work Platform</label>
+                                                                                <input type="text" class="form-control" name="work_platform" id="workPlatform" value="{{ $workPlatform->work_platform }}" required>
+                                                                            </div>
+                                                                            <div class="col-md-12 mb-4">
+                                                                                <label for="platformDescription">Platform Description</label>
+                                                                                <textarea class="form-control" name="platform_description" id="platformDescription" required>
+                                                                                    {{ $workPlatform->platform_description }}
+                                                                                </textarea>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
+                                                                        <button type="submit" class="btn btn-primary">Save</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                </div>
+
+                                                <div class="modal fade" id="deleteConformation{{ $workPlatform->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteConformationLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content" id="deleteConformationLabel">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Delete the platform?</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <p class="">If you delete the platform it will be gone forever. Are you sure you want to proceed?</p>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn" data-dismiss="modal">Cancel</button>
+                                                                <a href="{{ route('work_platform_delete', $workPlatform->id) }}" type="button" class="btn btn-danger" data-remove="task">Delete</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            @endforeach
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Sl. No</th>
+                                                <th>Work Platform</th>
+                                                <th>Platform Description</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                    @endif
+                                </div>
+
+                            </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
                 <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
                     <form id="contact" class="section contact">
@@ -615,8 +766,6 @@
 <script src="{{ asset('backend_assets/plugins/bootstrap-select/bootstrap-select.min.js') }}"></script>
 <script src="{{ asset('backend_assets/plugins/editors/markdown/simplemde.min.js') }}"></script>
 <script src="{{ asset('backend_assets/plugins/editors/markdown/custom-markdown.js') }}"></script>
-<script src="{{ asset('backend_assets/plugins/input-mask/jquery.inputmask.bundle.min.js') }}"></script>
-<script src="{{ asset('backend_assets/plugins/input-mask/input-mask.js') }}"></script>
 <script src="{{ asset('backend_assets/plugins/sweetalerts/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('backend_assets/plugins/sweetalerts/custom-sweetalert.js') }}"></script>
 
@@ -693,8 +842,6 @@
     var ss = $(".selectCountry").select2({
         tags: true,
     });
-
-    $("#phone").inputmask({mask:"(880) 9999-999-999"});
 
     </script>
 @endsection

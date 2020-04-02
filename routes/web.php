@@ -31,6 +31,16 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::match(['get', 'post'], '/user/image/upload/', 'HomeController@userImageUpload')->name('user_image_upload');
 
+    Route::group(['prefix' => 'work-platform'], function() {
+
+        Route::match(['get', 'post'], '/add', 'HomeController@workPlatformAdd')->name('work_platform_add');
+
+        Route::match(['get', 'post'], '/update/{id}', 'HomeController@workPlatformUpdate')->name('work_platform_update');
+
+        Route::match(['get', 'post'], '/delete/{id}', 'HomeController@workPlatformDelete')->name('work_platform_delete');
+
+    });
+
     Route::group(['prefix' => 'categories'], function() {
         
     	Route::match(['get', 'post'], '/', 'CategoryController@index')->name('categories');
