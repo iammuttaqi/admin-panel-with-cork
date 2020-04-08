@@ -96,46 +96,29 @@
 	</div>
 </div>
 
+@if (count($getEducations) > 0)
 <div class="education layout-spacing ">
 	<div class="widget-content widget-content-area">
 		<h3 class="">Education</h3>
 		<div class="timeline-alter">
-			<div class="item-timeline">
-				<div class="t-meta-date">
-					<p class="">04 Mar 2009</p>
+
+			@foreach ($getEducations as $education)
+				<div class="item-timeline">
+					<div class="t-meta-date">
+						<p class="">{{ $education->education_end }}</p>
+					</div>
+					<div class="t-dot">
+					</div>
+					<div class="t-text">
+						<p>{{ $education->education_title }}</p>
+					</div>
 				</div>
-				<div class="t-dot">
-				</div>
-				<div class="t-text">
-					<p>Royal Collage of Art</p>
-					<p>Designer Illustrator</p>
-				</div>
-			</div>
-			<div class="item-timeline">
-				<div class="t-meta-date">
-					<p class="">25 Apr 2014</p>
-				</div>
-				<div class="t-dot">
-				</div>
-				<div class="t-text">
-					<p>Massachusetts Institute of Technology (MIT)</p>
-					<p>Designer Illustrator</p>
-				</div>
-			</div>
-			<div class="item-timeline">
-				<div class="t-meta-date">
-					<p class="">04 Apr 2018</p>
-				</div>
-				<div class="t-dot">
-				</div>
-				<div class="t-text">
-					<p>School of Art Institute of Chicago (SAIC)</p>
-					<p>Designer Illustrator</p>
-				</div>
-			</div>
+			@endforeach
+
 		</div>
 	</div>
 </div>
+@endif
 
 <div class="work-experience layout-spacing ">
 	<div class="widget-content widget-content-area">

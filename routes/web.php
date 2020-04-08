@@ -25,19 +25,39 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('/home', 'HomeController@index')->name('home');
 
-    Route::match(['get', 'post'], '/user/profile', 'HomeController@userProfile')->name('user_profile');
+    Route::match(['get', 'post'], '/user/profile', 'UserController@userProfile')->name('user_profile');
 
-    Route::match(['get', 'post'], '/user/profile/setting/', 'HomeController@userProfileSetting')->name('user_profile_setting');
+    Route::match(['get', 'post'], '/user/profile/setting/', 'UserController@userProfileSetting')->name('user_profile_setting');
 
-    Route::match(['get', 'post'], '/user/image/upload/', 'HomeController@userImageUpload')->name('user_image_upload');
+    Route::match(['get', 'post'], '/user/image/upload/', 'UserController@userImageUpload')->name('user_image_upload');
 
     Route::group(['prefix' => 'work-platform'], function() {
 
-        Route::match(['get', 'post'], '/add', 'HomeController@workPlatformAdd')->name('work_platform_add');
+        Route::match(['get', 'post'], '/add', 'UserController@workPlatformAdd')->name('work_platform_add');
 
-        Route::match(['get', 'post'], '/update/{id}', 'HomeController@workPlatformUpdate')->name('work_platform_update');
+        Route::match(['get', 'post'], '/update/{id}', 'UserController@workPlatformUpdate')->name('work_platform_update');
 
-        Route::match(['get', 'post'], '/delete/{id}', 'HomeController@workPlatformDelete')->name('work_platform_delete');
+        Route::match(['get', 'post'], '/delete/{id}', 'UserController@workPlatformDelete')->name('work_platform_delete');
+
+    });
+
+    Route::group(['prefix' => 'education'], function() {
+        
+        Route::match(['get', 'post'], '/add', 'UserController@educationAdd')->name('education_add');
+
+        Route::match(['get', 'post'], '/update/{id}', 'UserController@educationUpdate')->name('education_edit');
+
+        Route::match(['get', 'post'], '/delete/{id}', 'UserController@educationDelete')->name('education_delete');
+
+    });
+
+    Route::group(['prefix' => 'work'], function() {
+        
+        Route::match(['get', 'post'], '/add', 'UserController@workAdd')->name('work_add');
+
+        Route::match(['get', 'post'], '/edit/{id}', 'UserController@workEdit')->name('work_edit');
+
+        Route::match(['get', 'post'], '/delete/{id}', 'UserController@workDelete')->name('work_delete');
 
     });
 

@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
--- Host:                         localhost
--- Server version:               5.7.24 - MySQL Community Server (GPL)
+-- Host:                         127.0.0.1
+-- Server version:               10.4.12-MariaDB-log - mariadb.org binary distribution
 -- Server OS:                    Win64
--- HeidiSQL Version:             10.2.0.5599
+-- HeidiSQL Version:             11.0.0.5919
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -16,9 +16,9 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `category_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `category_slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `category_description` blob,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  `menu_status` tinyint(1) NOT NULL DEFAULT '0',
+  `category_description` blob DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `menu_status` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -302,6 +302,28 @@ INSERT INTO `countries` (`id`, `country_name`, `country_code`, `created_at`, `up
 	(249, 'Zimbabwe', 'ZW', NULL, NULL);
 /*!40000 ALTER TABLE `countries` ENABLE KEYS */;
 
+-- Dumping structure for table admin-panel.education
+CREATE TABLE IF NOT EXISTS `education` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `education_title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `education_department` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `education_start` date NOT NULL,
+  `education_end` date NOT NULL,
+  `description` blob DEFAULT NULL,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `education_user_id_foreign` (`user_id`),
+  CONSTRAINT `education_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table admin-panel.education: ~1 rows (approximately)
+/*!40000 ALTER TABLE `education` DISABLE KEYS */;
+INSERT INTO `education` (`id`, `education_title`, `education_department`, `education_start`, `education_end`, `description`, `user_id`, `created_at`, `updated_at`) VALUES
+	(1, 'Feni Computer Institute', 'Computer Science & Technology', '2014-08-26', '2019-01-31', _binary 0x416C6C2069732077656C6C, 1, '2020-04-09 03:08:49', '2020-04-09 03:09:08');
+/*!40000 ALTER TABLE `education` ENABLE KEYS */;
+
 -- Dumping structure for table admin-panel.failed_jobs
 CREATE TABLE IF NOT EXISTS `failed_jobs` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -309,7 +331,7 @@ CREATE TABLE IF NOT EXISTS `failed_jobs` (
   `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -323,9 +345,9 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table admin-panel.migrations: ~5 rows (approximately)
+-- Dumping data for table admin-panel.migrations: ~8 rows (approximately)
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 	(2, '2014_10_12_100000_create_password_resets_table', 1),
@@ -333,7 +355,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 	(4, '2020_03_12_092436_create_categories_table', 1),
 	(5, '2020_03_12_201855_create_countries_table', 1),
 	(8, '2014_10_12_000000_create_users_table', 2),
-	(9, '2020_03_31_234007_create_work_platforms_table', 3);
+	(9, '2020_03_31_234007_create_work_platforms_table', 3),
+	(14, '2020_04_08_015111_create_education_table', 4),
+	(18, '2020_04_09_032539_create_works_table', 5);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 
 -- Dumping structure for table admin-panel.password_resets
@@ -356,7 +380,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `username` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `bio` blob,
+  `bio` blob DEFAULT NULL,
   `image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'default.jpg',
   `gender` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `profession` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -370,8 +394,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `twitter` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `instagram` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `github` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `role` int(11) NOT NULL DEFAULT '0',
-  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `role` int(11) NOT NULL DEFAULT 0,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -385,9 +409,32 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table admin-panel.users: ~2 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `username`, `bio`, `image`, `gender`, `profession`, `birthday`, `address`, `country_id`, `location`, `phone`, `website`, `facebook`, `twitter`, `instagram`, `github`, `role`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
-	(1, 'Muntaser Muttaqi', 'admin@admin.com', NULL, '$2y$10$tgmlyEFAcRtdbRyghfO/tOeyqYtlNxXT/suuVkKOBM3eXcppEUvFC', 'admin', _binary 0x4920616D204D756E7461736572204D757474617169, '1. Muntaser Muttaqi-2020-03-30-19-01-22.jpg', 'M', 'Web Developer', '1998-09-30', 'Nizkunjara', 19, 'Feni', '+8801863250879', 'https://m-muttaqi.github.io/muttaqi.com', 'muntaser.muttaqi', 'iammuttaqi', 'iammuttaqi', 'm-muttaqi', 2, 1, 'lgMvw5R2ZmkpYRqufqETKY3x1lj9PqgZ7tIlxCWYCoI8KEB1NT5f6HhfyllT', '2020-03-30 18:59:45', '2020-04-01 00:37:48'),
+	(1, 'Muntaser Muttaqi', 'admin@admin.com', NULL, '$2y$10$tgmlyEFAcRtdbRyghfO/tOeyqYtlNxXT/suuVkKOBM3eXcppEUvFC', 'admin', _binary 0x4920616D204D756E7461736572204D757474617169, '1. Muntaser Muttaqi-2020-03-30-19-01-22.jpg', 'M', 'Web Developer', '1998-09-30', 'Nizkunjara', 19, 'Feni', '+8801863250879', 'https://m-muttaqi.github.io/muttaqi.com', 'muntaser.muttaqi', 'iammuttaqi', 'iammuttaqi', 'm-muttaqi', 2, 1, 'lgMvw5R2ZmkpYRqufqETKY3x1lj9PqgZ7tIlxCWYCoI8KEB1NT5f6HhfyllT', '2020-03-30 18:59:45', '2020-04-09 04:10:27'),
 	(2, 'Thor Odinson', 'thor@odinson.com', NULL, '$2y$10$By5GuK5NUB/CJ.l0/7QjjeJuI1LRoWWsH28Mz0nqVJbR2g.Hll6S2', 'thor', _binary 0x546865206F6E6C79207468696E67206973207065726D616E656E74206973206C69666520697320696D7065726D616E656E6365, '2. Thor Odinson-2020-03-30-19-13-03.jpg', 'M', 'Avengers', '0520-03-31', 'New Asgard', 166, 'Norway', '01234567890', 'https://marvel.com', 'thor', 'thor', 'thor', NULL, 0, 1, NULL, '2020-03-30 19:10:21', '2020-03-30 19:53:52');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
+
+-- Dumping structure for table admin-panel.works
+CREATE TABLE IF NOT EXISTS `works` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `company` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `job_title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `job_location` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `work_start` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `work_end` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `work_description` blob NOT NULL,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `works_user_id_foreign` (`user_id`),
+  CONSTRAINT `works_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table admin-panel.works: ~1 rows (approximately)
+/*!40000 ALTER TABLE `works` DISABLE KEYS */;
+INSERT INTO `works` (`id`, `company`, `job_title`, `job_location`, `work_start`, `work_end`, `work_description`, `user_id`, `created_at`, `updated_at`) VALUES
+	(1, 'Ontik Technology', 'Web Developer', 'Dhanmondi', '2020-02-10', '2020-12-31', _binary 0x6669727374206A6F62, 1, '2020-04-09 04:02:53', '2020-04-09 04:02:53');
+/*!40000 ALTER TABLE `works` ENABLE KEYS */;
 
 -- Dumping structure for table admin-panel.work_platforms
 CREATE TABLE IF NOT EXISTS `work_platforms` (
@@ -405,8 +452,8 @@ CREATE TABLE IF NOT EXISTS `work_platforms` (
 -- Dumping data for table admin-panel.work_platforms: ~4 rows (approximately)
 /*!40000 ALTER TABLE `work_platforms` DISABLE KEYS */;
 INSERT INTO `work_platforms` (`id`, `work_platform`, `platform_description`, `user_id`, `created_at`, `updated_at`) VALUES
-	(1, 'Web Developer', _binary 0x77656220646576656C6F70657220666F722033207965617273, 1, '2020-04-01 00:02:57', '2020-04-01 00:13:50'),
-	(2, 'Web Design', _binary 0x64657369676E657220666F722034207965617273, 1, '2020-04-01 00:04:33', '2020-04-01 00:13:01'),
+	(1, 'Web Developer', _binary 0x77656220646576656C6F70657220666F722033207965617273, 1, '2020-04-01 00:02:57', '2020-04-07 14:44:48'),
+	(2, 'Web Design', _binary 0x64657369676E657220666F722034207965617273, 1, '2020-04-01 00:04:33', '2020-04-07 14:45:03'),
 	(5, 'Photography', _binary 0x526F79616C20436F6C6C616765206F662041727420526F79616C20436F6C6C616765206F66204172742044657369676E657220496C6C7573747261746F7220526F79616C20436F6C6C616765206F66204172742044657369676E657220496C6C7573747261746F7220526F79616C20436F6C6C616765206F66204172742044657369676E657220496C6C7573747261746F7220526F79616C20436F6C6C616765206F66204172742044657369676E657220496C6C7573747261746F7220526F79616C20436F6C6C616765206F66204172742044657369676E657220496C6C7573747261746F722044657369676E657220496C6C7573747261746F72, 1, '2020-04-01 00:35:06', '2020-04-01 00:52:33'),
 	(6, 'Gaming', _binary 0x526F79616C20436F6C6C616765206F66204172740D0A0D0A44657369676E657220496C6C7573747261746F720D0A0D0A0D0A526F79616C20436F6C6C616765206F66204172740D0A0D0A44657369676E657220496C6C7573747261746F720D0A0D0A0D0A526F79616C20436F6C6C616765206F66204172740D0A0D0A44657369676E657220496C6C7573747261746F720D0A0D0A0D0A526F79616C20436F6C6C616765206F66204172740D0A0D0A44657369676E657220496C6C7573747261746F72, 1, '2020-04-01 00:35:18', '2020-04-01 00:37:00');
 /*!40000 ALTER TABLE `work_platforms` ENABLE KEYS */;
